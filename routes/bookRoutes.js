@@ -4,9 +4,9 @@ import authMiddleware from '../middleware/Auth.middleware.js';
 
 const bookRouter = express.Router();
 
-bookRouter.post('/', authMiddleware, createBook);
 bookRouter.get('/', getAllBooks);
 bookRouter.get('/:id', getBookById);
+bookRouter.post('/', authMiddleware, createBook);
 bookRouter.put('/:id', authMiddleware, updateBook);
 bookRouter.delete('/:id', authMiddleware, deleteBook);    
 

@@ -4,7 +4,7 @@ const bookSchema = new mongoose.Schema(
   {
     title: {
       type: String,
-      required: [true, "Book title is required"],
+      required: [true, "Book title is required"], // Give error message if it doen't meet the requirement
       trim: true,
       unique: true,
       maxlength: [200, "Title cannot exceed 200 characters"],
@@ -21,7 +21,7 @@ const bookSchema = new mongoose.Schema(
       type: String,
       required: [true, "Genre is required"],
       trim: true,
-      maxlength: [50, "Genre cannot exceed 50 characters"]
+      maxlength: [50, "Genre cannot exceed 50 characters"],
     },
     price: {
       type: Number,
@@ -43,7 +43,6 @@ const bookSchema = new mongoose.Schema(
         required: true,
       },
     },
-    
   },
   {
     timestamps: true,

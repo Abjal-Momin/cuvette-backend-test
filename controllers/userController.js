@@ -10,15 +10,16 @@ const register = async (req, res) => {
       return res.status(400).json({ message: "All fields are required" });
     }
 
+    // Check if a user already exists
     const existingUser = await User.findOne({ email: email.toLowerCase() });
     if (existingUser) {
-      return res.status(400).json({ message: "User already exists" });
+      return res.status(409).json({ message: "User already exists" });
     }
 
     const user = new User({
       name: name.replace(/\s+/g, " "),
       email: email.toLowerCase(),
-      password, //  Password hashing is done at the model level
+      password, //  Password hashing is done at the model  level
     });
 
     await user.save();
@@ -30,7 +31,7 @@ const register = async (req, res) => {
     });
   } catch (error) {
     res
-      .status(500)
+      .status(400)
       .json({ message: "Error creating user", error: error.message });
   }
 };
@@ -42,13 +43,13 @@ const login = async (req, res) => {
     const user = await User.findOne({ email: email.toLowerCase() });
 
     if (!user) {
-      return res.status(400).json({ message: "User not found" });
+      return res.status(404).json({ message: "User not found" });
     }
 
     const isPasswordCorrect = await bcrypt.compare(password, user.password);
 
     if (!isPasswordCorrect) {
-      return res.status(400).json({ message: "Incorrect password" });
+      return res.status(401).json({ message: "Invalid credentials" });
     }
 
     // Token will be generated  by helper.js

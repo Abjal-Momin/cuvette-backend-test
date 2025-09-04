@@ -4,7 +4,7 @@ import bcrypt from "bcrypt";
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: [true, "Name is required"],
+    required: [true, "Name is required"], // Give error message if it doen't meet the requirement
     trim: true,
     maxlength: [50, "Name cannot exceed 50 characters"],
     minlength: [2, "Name must be at least 2 characters"],
@@ -34,7 +34,7 @@ userSchema.pre("save", async function (next) {
   }
 
   try {
-    // Hash password with cost of 12
+    // Hash password with cost of 12 rounts
     const salt = await bcrypt.genSalt(12);
     this.password = await bcrypt.hash(this.password, salt);
     next();
