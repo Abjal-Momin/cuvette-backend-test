@@ -76,19 +76,22 @@ The API will be running at `http://localhost:5000`.
 
 ## 📝 API Endpoints
 
-A full list of available endpoints and how to use them can be found in the API Documentation. 
-***
-🧪 Postman Test Scenarios
-Step Endpoint Method Auth Required Purpose
-1 /api/users/register POST ❌ No Register a new user
-2 /api/users/login POST ❌ No Get JWT token
-3 /api/books GET ❌ No Publicly list all books
-4 /api/books/:id GET ❌ No Get a book by ID
-5 /api/books POST ✅ Yes Create a new book
-6 /api/books/:id PUT ✅ Yes Update a book
-7 /api/books/:id DELETE ✅ Yes Delete a book
+This section outlines the available API endpoints.
 
-- ***
+### User Endpoints
+| Method | Endpoint              | Auth Required | Description             |
+| :----- | :-------------------- | :-----------: | :---------------------- |
+| `POST` | `/api/users/register` |      No       | Registers a new user.   |
+| `POST` | `/api/users/login`    |      No       | Logs in a user and returns a JWT. |
+
+### Book Endpoints
+| Method   | Endpoint         | Auth Required | Description                               |
+| :------- | :--------------- | :-----------: | :---------------------------------------- |
+| `GET`    | `/api/books`     |      No       | Retrieves a list of all books.            |
+| `GET`    | `/api/books/:id` |      No       | Retrieves a single book by its ID.        |
+| `POST`   | `/api/books`     |     Yes     | Adds a new book to the collection.        |
+| `PUT`    | `/api/books/:id` |     Yes     | Updates a book (requires ownership).      |
+| `DELETE` | `/api/books/:id` |     Yes     | Deletes a book (requires ownership).      |
 
 ## 🤝 Contributing
 
