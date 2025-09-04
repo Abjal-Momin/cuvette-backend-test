@@ -14,9 +14,12 @@ app.use("/api/users", userRoutes);
 
 app.use("/api/books/", bookRouter);
 
+app.get("/", (req, res) => {
+  res.send("Welcome to the Bookstore API!");
+});
+
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
-  console.log("server is running on", PORT);
-  console.log("localhost:3000/api/users/register");
+  console.log(`http://localhost:${PORT}`);
 });
