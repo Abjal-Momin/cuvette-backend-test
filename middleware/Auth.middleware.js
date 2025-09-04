@@ -13,15 +13,28 @@ const authMiddleware = async (req, res, next) => {
     if (authHeader.split(" ")[0] !== "Bearer") {
       return res.status(401).json({ message: "Invalid token format" });
     }
+
     const token = authHeader.split(" ")[1];
 
+    // Verify the token
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
     const user = await User.findById(decoded.id);
 
+    // Check if the user exists
     if (!user) {
-      return res.status(401).json({ message: "Unauthorized User" });
+      return res.status(401).json({ message: "Invalid token" });
     }
+
+    // Check if the user is a book creator
+    const { id } = req.params;
+    if (id) {
+      const book = await Book.findById(id);
+      if (book.createdBy.email !== user.email) {
+        return res.status(403).json({ message: "Unauthorized User" });
+      }
+    }
+
     // Passed to next controller
     req.user = user;
 

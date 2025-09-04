@@ -23,6 +23,7 @@ const createBook = async (req, res) => {
         .status(400)
         .json({ message: "Book with this title already exists" });
     }
+    
     // Comes From Middleware
     const user = req.user;
 
@@ -91,11 +92,6 @@ const updateBook = async (req, res) => {
       return res.status(404).json({ message: "Book not found" });
     }
 
-    // Verify the current user created the book
-    if (book.createdBy.email !== req.user.email) {
-      return res.status(403).json({ message: "You can only update books you created" });
-    }
-
     author ? (book.author = author.replace(/\s+/g, " ")) : book;
     genre ? (book.genre = genre.replace(/\s+/g, " ")) : book;
     price ? (book.price = price) : book;
@@ -120,12 +116,6 @@ const deleteBook = async (req, res) => {
       return res.status(404).json({ message: "Book not found" });
     }
 
-    // Verify the current user created the book
-    if (book.createdBy.email !== req.user.email) {
-      return res.status(403).json({ message: "You can only delete books you created" });
-    }
-
-    // await book.remove();
     await book.deleteOne();
 
     res.status(200).json({ message: "Book deleted successfully" });
@@ -134,6 +124,21 @@ const deleteBook = async (req, res) => {
       .status(500)
       .json({ message: "Error deleting book", error: error.message });
   }
+};
+
+// Helper function to format book response with consistent field order
+const formatBookResponse = (book) => {
+  return {
+    _id: book._id,
+    title: book.title,
+    author: book.author,
+    genre: book.genre,
+    price: book.price,
+    inStock: book.inStock,
+    createdAt: book.createdAt,
+    updatedAt: book.updatedAt,
+    createdBy: book.createdBy
+  };
 };
 
 export { createBook, getAllBooks, getBookById, updateBook, deleteBook };

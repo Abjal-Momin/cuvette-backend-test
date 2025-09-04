@@ -21,28 +21,7 @@ const bookSchema = new mongoose.Schema(
       type: String,
       required: [true, "Genre is required"],
       trim: true,
-      maxlength: [50, "Genre cannot exceed 50 characters"],
-      // enum: {
-      //   values: [
-      //     "Fiction",
-      //     "Non-Fiction",
-      //     "Mystery",
-      //     "Thriller",
-      //     "Romance",
-      //     "Science Fiction",
-      //     "Fantasy",
-      //     "Biography",
-      //     "History",
-      //     "Self-Help",
-      //     "Business",
-      //     "Technology",
-      //     "Health",
-      //     "Travel",
-      //     "Children",
-      //     "Other",
-      //   ],
-      //   message: "Please select a valid genre",
-      // },
+      maxlength: [50, "Genre cannot exceed 50 characters"]
     },
     price: {
       type: Number,
@@ -70,17 +49,5 @@ const bookSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
-
-// Indexes for better query performance
-// bookSchema.index({ title: 'text', author: 'text' });
-// bookSchema.index({ genre: 1 });
-// bookSchema.index({ inStock: 1 });
-// bookSchema.index({ createdBy: 1 });
-// bookSchema.index({ createdAt: -1 });
-
-// Virtual for book URL (if needed)
-// bookSchema.virtual('url').get(function() {
-//   return `/api/books/${this._id}`;
-// });
 
 export default mongoose.model("Book", bookSchema);

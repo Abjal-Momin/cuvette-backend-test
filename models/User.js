@@ -27,9 +27,6 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-// Index for faster email queries
-// userSchema.index({ email: 1 });
-
 // Hash password before saving
 userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) {
@@ -45,11 +42,6 @@ userSchema.pre("save", async function (next) {
     next(error);
   }
 });
-
-// Instance method to check password
-// userSchema.methods.matchPassword = async function (enteredPassword) {
-//   return await bcrypt.compare(enteredPassword, this.password);
-// };
 
 // Remove password from JSON output
 userSchema.methods.toJSON = function () {
