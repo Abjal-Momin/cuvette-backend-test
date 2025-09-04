@@ -1,6 +1,6 @@
 import User from "../models/User.js";
 import bcrypt from "bcrypt";
-import {  generateToken } from "../utils/helper.js";
+import { generateToken } from "../utils/helper.js";
 
 const register = async (req, res) => {
   try {
@@ -16,7 +16,7 @@ const register = async (req, res) => {
     }
 
     const user = new User({
-      name,
+      name: name.replace(/\s+/g, " "),
       email: email.toLowerCase(),
       password, //  Password hashing is done at the model level
     });
@@ -51,7 +51,7 @@ const login = async (req, res) => {
       return res.status(400).json({ message: "Incorrect password" });
     }
 
-    // Token will be generated  by helper.js 
+    // Token will be generated  by helper.js
     const token = generateToken(user);
 
     res.status(200).json({ message: "Login successful", token });

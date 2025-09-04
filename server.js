@@ -3,16 +3,16 @@ import dotenv from "dotenv";
 dotenv.config();
 import connectDB from "./config/database.js";
 import userRoutes from "./routes/userRoutes.js";
+import bookRouter from "./routes/bookRoutes.js";
+connectDB();
 
 const app = express();
 app.use(express.json());
-connectDB();
 
 app.use("/api/users", userRoutes);
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
+app.use("/api/books/", bookRouter);
+
 
 // app.use("*", (req, res) => {
 //   res.status(404).json({
