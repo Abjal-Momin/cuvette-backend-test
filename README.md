@@ -2,7 +2,7 @@
 
 A robust RESTful API for managing a bookstore, featuring user authentication and complete CRUD (Create, Read, Update, Delete) functionality for books. This backend service is built with Node.js, Express, and MongoDB.
 
-**Live Link:** [Your Deployed API Link Here](https://example.com)
+**Live Link:** [Your Deployed API Link Here](https://cuvette-backend-test.vercel.app/)
 
 ---
 
